@@ -1,8 +1,7 @@
-# Teensy_Batdetector  (update 2021 09 03)
+# Teensy_Batdetector  (update 2021 09 09)
 
 <b>Teensy Batdetector forum</b>
 https://forum.pjrc.com/threads/38988-Bat-detector
-
 
 <b>Hardware:</b>
 Edwin (PE1WF) has developed a great PCB to build these detectors. <br>More details can be found at https://forum.pjrc.com/threads/38988-Bat-detector?p=212852&viewfull=1#post212852 or <br>
@@ -14,14 +13,11 @@ kindly provided by Paul van Hoof https://www.paulvanhoof.nl/
 
 <b>Based on original-code from Frank (DD4WH)</b>
 https://github.com/DD4WH/Teensy-Bat-Detector 
-
-
 <br>
 
 # LATEST RELEASE 
-<b> <h2> release pending </h2> </b>
-<b><h2> v1.3 development release 202109XX</h2> </b>
-Complete Repository (HEX/src/lib) available at: <br>
+<b><h2> v1.3 development release 20210909</h2> </b>
+Complete Repository (HEX src/lib for platformIO) available at: <br>
 https://github.com/CorBer/teensy_batdetector/tree/master/version1_3development
 <br>
 <br>
