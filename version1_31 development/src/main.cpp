@@ -1,4 +1,5 @@
 
+
 /**********************************************************************
  * TEENSYBAT DETECTOR (build/tested on TEENSY 3.6/4.1) VERSION 1.3 202108XX
  * Copyright (c) 2018/2019/2020/2021 Cor Berrevoets, registax@gmail.com
@@ -114,7 +115,6 @@
    // post V1_3
    // added VIN measurement for Teensy 4.1 on pin 22 (A8), needs resistor-dividor to bring test-voltage in 0..3v3 range !!
    // change in Sparkfun library due to false leapyear calculation
-   // REQUEST FOR GPS coordinates displayed in HH MM SS.SS (FORUM)
    
 
    // V1_3 CHANGES
@@ -144,6 +144,7 @@
 #define batversion " v1.3(post)"
 #define versiontrack "09111500"
 #define versionno 1030  
+
 // used in EEProm storage <1000 is pre-release            
 //  1010 is a the 2nd development version update          
 //  1020 is a new release. Final testing started 20210515 
@@ -182,7 +183,7 @@
 
 #include "bat_gps.h"
 
-#include "bat_lipo.h"
+//#include "bat_lipo.h"
 
 #include "bat_sd.h" //routines to read/write SD
 #ifdef USE_SDCONFIG
@@ -426,6 +427,7 @@ void startRecording()
 #ifdef USE_PSRAM
   boolean AREC_SRswitch = false;
 #endif
+
   if (AUTO_REC)
     {
      D_PRINTLN_F("AUTOREC", AUTO_REC);
@@ -2209,13 +2211,15 @@ void setup()
     Serial.println(NVRAM_DATA[ii]);
     }
 #endif
-
+  
   D_PRINTLN_F(D_BOLDGREEN, "COMPILER INFORMATION");
+
   D_PRINTXY("ARDUINO ", ARDUINO);
   D_PRINTXY("C++ ", __cplusplus);
   D_PRINTXY("CLIBCXX ", __GLIBCXX__);
   D_PRINTXY("Version ", __VERSION__);
   D_PRINTXY("F_CPU ", F_CPU);
+  
 #ifdef VIN_ON
   D_PRINTXY("VIN", VIN_ADC());
 
@@ -2692,8 +2696,9 @@ void loop()
       NVRAM_DATA[0] = getRTC_TSR(); //set current time in seconds NVRAM0
       NVRAM_DATA[1] = AREC_DEEPSLEEP_SLEEP; //also keep track of the wakeup and sleep time
       NVRAM_DATA[2] = AREC_DEEPSLEEP_WAKEUP;
-
+#ifdef USE_PWMTFT
       powerOff_beforeSleep();
+#endif      
       setWakeupCallandSleep(DEEPSLEEP_TIMER);
       }
 
@@ -2840,12 +2845,12 @@ void loop()
               if ((display_mode != settings_page) and (GPSbaudOK))
                 {
                 D_PRINT("readGPS(ms)");
-                uint32_t start = millis();
+                //uint32_t start = millis();
 
                 readGPS(); //just read and update and powerdown
                 showTime();
 
-                D_PRINTXY(millis() - start, " DONE");
+                //D_PRINTXY(millis() - start, " DONE");
                 }
             #endif
               }
@@ -2974,8 +2979,9 @@ void loop()
 
             NVRAM_DATA[1] = AREC_DEEPSLEEP_SLEEP; //also keep track of the wakeup and sleep time
             NVRAM_DATA[2] = AREC_DEEPSLEEP_WAKEUP;
-
+#ifdef USE_PWMTFT
             powerOff_beforeSleep();
+#endif            
 
             setWakeupCallandSleep(DEEPSLEEP_TIMER);
           #else
